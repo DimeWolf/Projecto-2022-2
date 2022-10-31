@@ -97,13 +97,10 @@ public class App {
                          System.out.println("Porfavor ingrese solo los numeros indicados");
                          break;
                     }
-
                } catch(InputMismatchException e) {
                     System.out.println(":v");
                }
-
           }
-
           newInput.close();
      }
 }
