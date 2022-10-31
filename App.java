@@ -4,7 +4,6 @@ import java.util.Random;
 
 public class App {
 
-
      /// 250 - 500 W/h / 157 kW/h / 1000w = 1 kW / 247.5$ x 1 kW/h
      
      public static void main (String [] args) {
