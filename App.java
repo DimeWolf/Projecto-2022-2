@@ -15,64 +15,86 @@ public class App {
           Random numberGen = new Random();
 
           ///Variables
-          int option, precioKwH = 247, kWh, kWhtotal, consumoProm = 157, ProduccionMax = 500, ProduccionMin = 250, paneles = 1;
-          boolean menu1  = false, menu2 = false;
+          int option, paneles = 0, minCapacity = 0, maxCapacity = 0;
+          boolean menu1 = false, menu2;
 
           while (!menu1) {
-
                try {
+                    menu2 = false;
 
                     call.main_menu();
                     call.option_selection();
-
                     option = newInput.nextInt();
 
                     switch (option) {
-                         
                          case 1:
-                         menu2 = false;
-
+                             
                          while (!menu2) {
-                              
                               try {
 
-                                   kWh = numberGen.nextInt(ProduccionMax) + ProduccionMin;
-                                   kWhtotal = paneles * kWh; 
-
-                                   System.out.print("\n=========#   #=========\n\n- Usted tiene: " + paneles + " paneles solares, generando: " + kWhtotal + "Wh\n\n- El consumo energetico de una casa en colombia es de: " + consumoProm + "kWh costando: " + precioKwH + " pesos");
-
+                                   call.solarPanel_options();
                                    call.option_selection();
-
                                    option = newInput.nextInt();
 
                                    switch (option) {
+                                   case 1:
+                                        call.voltage_selector();
+                                        option = newInput.nextInt();
 
-                                        case 1:
+                                        switch (option) {
+                                             case 1:
+                                                  minCapacity = 150;
+                                                  maxCapacity = 250;
+                                             break;
+                                             
+                                             case 2:
+                                                  minCapacity = 200;
+                                                  maxCapacity = 350;
+                                             break;
 
-                                        case 2:
+                                             case 3:
+                                                  minCapacity = 350;
+                                                  maxCapacity = 5000;
+                                             break;
 
-                                        menu2 = true;
-
-                                        default:
-
-                                        System.out.println("Porfavor ingrese solo los numeros indicados");
+                                             default:
+                                             System.out.println("Porfavor ingrese solo los numeros indicados");
+                                             break;
+                                        }
                                         break;
-                                   }
 
-                              } catch (InputMismatchException e) {
+                                   case 2:
+                                        System.out.print("\n====# Ingrese el nuevo numero de paneles solares #====\n>\\");
+                                        paneles = newInput.nextInt();
+                                        break;
+                                        
+                                   case 3:
+
+                                   case 4:
+                                        menu2 = true;
+                                        break;
+
+                                   default:
+                                   System.out.println("Porfavor ingrese solo los numeros indicados");
+                                   break;
+                                   }
+                              }    catch(InputMismatchException e) {
                                    System.out.println(":v");
                               }
                          }
-
+                                   
                          break;
 
                          case 2:
 
+
+                         break;
+
+                         case 3:
                          menu1 = true;
                          break;
 
                          default: 
-
                          System.out.println("Porfavor ingrese solo los numeros indicados");
                          break;
                     }
