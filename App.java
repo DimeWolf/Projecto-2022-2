@@ -1,21 +1,18 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
-import java.util.Random;
 
 public class App {
-
-     /// 250 - 500 W/h / 157 kW/h / 1000w = 1 kW / 247.5$ x 1 kW/h
      
      public static void main (String [] args) {
 
           ///Calls
           Scanner newInput = new Scanner(System.in);
           Texto call = new Texto();
-          Random numberGen = new Random();
 
           ///Variables
-          int option, paneles = 0, minCapacity = 0, maxCapacity = 0;
+          int option, panels = 0, minCapacity = 0, maxCapacity = 0, consumoHogar = 0;
           boolean menu1 = false, menu2;
+          double kW = 0, kWh = 0, kWhTotal = 0, valorParcial, valorFinal = 0, precioKwh = 799.0;
 
           while (!menu1) {
                try {
@@ -53,28 +50,34 @@ public class App {
 
                                              case 3:
                                                   minCapacity = 350;
-                                                  maxCapacity = 5000;
+                                                  maxCapacity = 500;
                                              break;
 
                                              default:
-                                             System.out.println("Porfavor ingrese solo los numeros indicados");
+                                                  call.missinput_message();
                                              break;
                                         }
-                                        break;
+                                   break;
 
                                    case 2:
                                         System.out.print("\n====# Ingrese el nuevo numero de paneles solares #====\n>\\");
-                                        paneles = newInput.nextInt();
+                                        panels = newInput.nextInt();
                                         break;
                                         
                                    case 3:
+                                        kW = Math.floor(Math.random() * (maxCapacity - minCapacity + 1)) + minCapacity;
+                                        kWh = kW * panels / 1000;
+                                        kWhTotal = kWh * 8;
+
+                                        System.out.print("\nNumero de paneles solares = " + panels + "\nVatios producidos por panel = " + kW + " W\nKilovatios producidos por hora = " + kWh + " Kw/h\nKilowatts producidos por dia = " + kWhTotal + " kW/h\n");
+                                   break;
 
                                    case 4:
                                         menu2 = true;
-                                        break;
+                                   break;
 
                                    default:
-                                   System.out.println("Porfavor ingrese solo los numeros indicados");
+                                        call.missinput_message();
                                    break;
                                    }
                               }    catch(InputMismatchException e) {
@@ -85,16 +88,22 @@ public class App {
                          break;
 
                          case 2:
-
-
+                              System.out.print("\n===# Ingrese el consumo de kilovatios de su hogar #===\n>\\");
+                              consumoHogar = newInput.nextInt();
                          break;
 
                          case 3:
-                         menu1 = true;
+                              valorParcial = kWh * precioKwh;
+                              valorFinal = Math.round(valorParcial * 100d) / 100d;
+                              System.out.print("\nTeniendo un consumo total de " + consumoHogar + " kW por hora\nY produciendo con " + panels + " paneles solares " + kWh + " kW por hora\nEn total usted ahorraria " + valorFinal + " pesos por hora\n");
+                         break;
+
+                         case 4:
+                              menu1 = true;
                          break;
 
                          default: 
-                         System.out.println("Porfavor ingrese solo los numeros indicados");
+                              call.missinput_message();
                          break;
                     }
                } catch(InputMismatchException e) {
